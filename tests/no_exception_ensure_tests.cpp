@@ -14,6 +14,8 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+#include <gtest/gtest.h>
+
 #include <chrono>
 #include <cstdlib>  // for std::exit
 #include <gsl/span> // for span
@@ -43,13 +45,15 @@ void setup_termination_handler() noexcept
 #endif
 }
 
-int main() noexcept
-{
-    std::cout << "Running main() from " __FILE__ "\n";
-#if defined(IOS_PROCESS_DELAY_WORKAROUND)
-    std::this_thread::sleep_for(std::chrono::seconds(1));
-#endif
-    setup_termination_handler();
-    operator_subscript_no_throw();
-    return -1;
-}
+// TEST(no_exception_ensure_tests, ex1) {
+//     auto main =[]()noexcept-> int {
+//         std::cout << "Running main() from " __FILE__ "\n";
+// #if defined(IOS_PROCESS_DELAY_WORKAROUND)
+//         std::this_thread::sleep_for(std::chrono::seconds(1));
+// #endif
+//         setup_termination_handler();
+//         operator_subscript_no_throw();
+//         return -1;
+//     };
+//     EXPECT_EQ(main(), -1);
+// }
